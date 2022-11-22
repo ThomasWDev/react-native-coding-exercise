@@ -6,6 +6,8 @@ import SearchBar from '../components/SearchBar';
 import TableHead from '../components/TableHead';
 import TableData from '../components/TableData';
 import TableFooter from '../components/TableFooter';
+import { useQuery, useLazyQuery } from '@apollo/client';
+import { GET_LAUNCHES } from '../utils/queries';
 
 const Home = () => {
 	const [selectedRow, setSelectedRow] = useState(null);
@@ -14,6 +16,11 @@ const Home = () => {
 		sort: `launch_year:desc`,
 		offset: 0,
 	});
+	const { loading, error, data, fetchMore } = useQuery(GET_LAUNCHES, {
+		variables: search,
+	});
+
+	console.log('data:', data?.launchesPast.length);
 
 	return (
 		<MainLayout
@@ -32,7 +39,7 @@ const Home = () => {
 		>
 			<View>
 				<TableData
-					data={[]}
+					data={data?.launchesPast || []}
 					loading={loading}
 					selectedRow={selectedRow}
 					setSelected={setSelectedRow}
