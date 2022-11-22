@@ -12,6 +12,7 @@ const SpaceTours = () => {
 			<SafeAreaView style={container.rootTop}></SafeAreaView>
 			<SafeAreaView style={container.rootBottom}>
 				<StatusBar style="light" />
+				<HomeRouter />
 			</SafeAreaView>
 		</ApolloProvider>
 	);
