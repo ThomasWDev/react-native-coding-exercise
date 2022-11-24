@@ -4,25 +4,27 @@ import { table } from '../utils/styles';
 import Button from './Button';
 import Dropdown from './Dropdown';
 
-const TableHead = ({ filter, sort }) => {
-	const [sortAsc, setSort] = useState(true);
-	const [selected, setSelected] = useState(undefined);
+const TableHead = ({ filter, sort, setSorting, setFilter }) => {
 	const filters = [
-		{ label: 'MISSION NAME', value: '1' },
-		{ label: 'ROCKET NAME', value: '2' },
-		{ label: 'ROCKET TYPE', value: '3' },
-		{ label: 'LAUNCH YEAR', value: '4' },
+		{ label: 'MISSION NAME', value: 'mission_name' },
+		{ label: 'ROCKET NAME', value: 'rocket_name' },
+		{ label: 'ROCKET TYPE', value: 'rocket_type' },
+		{ label: 'LAUNCH YEAR', value: 'launch_year' },
 	];
-
-	useEffect(() => {
-		setSelected(filters[0]);
-	}, []);
+	const [selected, setSelected] = useState(filters[0]);
 
 	return (
 		<View>
 			<View style={table.tableHeader}>
 				<View style={table.tableFilter}>
-					<Dropdown data={filters} onSelect={setSelected}>
+					<Dropdown
+						value={selected}
+						data={filters}
+						onSelect={(selected) => {
+							setSelected(selected);
+							setFilter(selected);
+						}}
+					>
 						<Image
 							style={table.tableSortIcon}
 							source={require('../../assets/filtericon.png')}
@@ -30,17 +32,17 @@ const TableHead = ({ filter, sort }) => {
 					</Dropdown>
 				</View>
 				<View style={table.tableSortContainer}>
-					<Button transparent onPress={() => setSort(!sortAsc)}>
+					<Button transparent onPress={() => setSorting(!sort, selected)}>
 						<Text style={table.tableSortText}>{selected?.label}</Text>
-						{sortAsc ? (
+						{sort ? (
 							<Image
 								style={table.tableSortIcon}
-								source={require(`../../assets/arrowdown.png`)}
+								source={require(`../../assets/arrowup.png`)}
 							/>
 						) : (
 							<Image
 								style={table.tableSortIcon}
-								source={require(`../../assets/arrowup.png`)}
+								source={require(`../../assets/arrowdown.png`)}
 							/>
 						)}
 					</Button>
