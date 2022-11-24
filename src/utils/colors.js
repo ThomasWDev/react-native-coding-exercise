@@ -14,4 +14,5 @@ export default {
 	dropdownBg: '#1b2f4a',
 	dropdownItemBg: '#fef3db',
 	loader: '#193247',
+	ticketText: '#f4ddb5',
 };

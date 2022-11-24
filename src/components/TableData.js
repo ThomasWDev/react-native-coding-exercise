@@ -9,8 +9,18 @@ import {
 } from 'react-native';
 import { table } from '../utils/styles';
 import colors from '../utils/colors';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-const TableData = ({ data, loading, selectedRow, setSelected, footer }) => {
+const TableData = ({
+	data,
+	loading,
+	selectedRow,
+	setSelected,
+	sort,
+	footer,
+}) => {
+	const navigation = useNavigation();
+
 	return (
 		<View style={table.tableData}>
 			{loading ? (
@@ -29,24 +39,47 @@ const TableData = ({ data, loading, selectedRow, setSelected, footer }) => {
 					}}
 					renderItem={({ item: launch }) => {
 						return (
-							<TouchableOpacity
-								style={table.tableRow}
-								onPress={() => setSelected(1)}
-							>
-								<>
-									<Text style={table.tableRowText}>{launch?.mission_name}</Text>
-									<TouchableOpacity style={table.tableRowAction}>
-										<Image
-											style={table.tableRowActionImage}
-											source={require('../../assets/chevronright.png')}
-										/>
+							<View style={table.tableRow}>
+								<View style={table.tableRowLeft} />
+								<View style={table.tableRowCenter}>
+									<TouchableOpacity
+										style={[
+											table.tableRowData,
+											selectedRow === launch?.id && table.tableRowSelected,
+										]}
+										onPress={() => setSelected(launch?.id)}
+									>
+										<Text
+											style={[
+												table.tableRowText,
+												selectedRow === launch?.id &&
+													table.tableRowSelectedText,
+											]}
+										>
+											{launch?.mission_name}
+										</Text>
 									</TouchableOpacity>
-								</>
-							</TouchableOpacity>
+								</View>
+								<View style={table.tableRowRight}>
+									{selectedRow === launch?.id && (
+										<TouchableOpacity
+											style={table.tableRowAction}
+											onPress={() => {
+												navigation.navigate('TicketScreen', { ...launch });
+											}}
+										>
+											<Image
+												style={table.tableRowActionImage}
+												source={require('../../assets/chevronright.png')}
+											/>
+										</TouchableOpacity>
+									)}
+								</View>
+							</View>
 						);
 					}}
 					ListEmptyComponent={
-						<View>
+						<View style={{ alignItems: 'center', paddingVertical: 5 }}>
 							<Text>No data found!</Text>
 						</View>
 					}

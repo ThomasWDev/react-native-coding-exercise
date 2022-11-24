@@ -4,7 +4,7 @@ import { searchbar } from '../utils/styles';
 import colors from '../utils/colors';
 import Button from './Button';
 
-const SearchBar = ({ text, data }) => {
+const SearchBar = ({ text, setSearchText, doSearch }) => {
 	return (
 		<View style={searchbar.searchbarContainer}>
 			<View style={searchbar.searchInput}>
@@ -17,9 +17,7 @@ const SearchBar = ({ text, data }) => {
 					</View>
 					<TextInput
 						value={text}
-						onChange={(value) => {
-							console.log('value:', value);
-						}}
+						onChangeText={(value) => setSearchText(value)}
 						autoCapitalize="none"
 						placeholder="Search for flights"
 						placeholderTextColor={colors.searchInputText}
@@ -28,7 +26,7 @@ const SearchBar = ({ text, data }) => {
 				</View>
 			</View>
 			<View>
-				<Button title="SEARCH" />
+				<Button title="SEARCH" onPress={() => doSearch()} />
 			</View>
 		</View>
 	);

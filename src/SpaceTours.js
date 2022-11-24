@@ -1,5 +1,10 @@
 import React from 'react';
-import { Text, View, SafeAreaView } from 'react-native';
+import { Text, View } from 'react-native';
+import {
+	SafeAreaProvider,
+	SafeAreaView,
+	useSafeArea,
+} from 'react-native-safe-area-context';
 import HomeRouter from './routes/MainRouter';
 import { StatusBar } from 'expo-status-bar';
 import { container } from './utils/styles';
@@ -9,11 +14,15 @@ import { client } from './utils/appoloClient';
 const SpaceTours = () => {
 	return (
 		<ApolloProvider client={client()}>
-			<SafeAreaView style={container.rootTop}></SafeAreaView>
-			<SafeAreaView style={container.rootBottom}>
-				<StatusBar style="light" />
-				<HomeRouter />
-			</SafeAreaView>
+			<SafeAreaProvider>
+				<SafeAreaView
+					style={container.rootBottom}
+					edges={['top', 'left', 'right']}
+				>
+					<StatusBar style="light" />
+					<HomeRouter />
+				</SafeAreaView>
+			</SafeAreaProvider>
 		</ApolloProvider>
 	);
 };

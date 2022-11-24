@@ -7,7 +7,7 @@ const container = StyleSheet.create({
 	},
 	rootBottom: {
 		flex: 1,
-		backgroundColor: colors.containerBg,
+		backgroundColor: colors.mainBg,
 	},
 	container: {
 		backgroundColor: colors.containerBg,
@@ -59,7 +59,7 @@ const header = StyleSheet.create({
 	},
 	headerAfter: {
 		backgroundColor: colors.containerBg,
-		flex: 0.4,
+		flex: 0.34,
 	},
 });
 
@@ -186,7 +186,6 @@ const table = StyleSheet.create({
 	tableHeader: {
 		marginHorizontal: 15,
 		marginTop: 10,
-		paddingVertical: 5,
 		paddingBottom: 10,
 		position: 'relative',
 		flex: 1,
@@ -213,6 +212,7 @@ const table = StyleSheet.create({
 		flexDirection: 'row',
 		height: 30,
 		justifyContent: 'center',
+		transition: '1s ease-in-out',
 	},
 	tableSortIcon: {
 		marginTop: 5,
@@ -221,7 +221,6 @@ const table = StyleSheet.create({
 		height: 20,
 		resizeMode: 'contain',
 		tintColor: colors.actionText,
-		transition: '1s ease-in-out',
 	},
 	tableSortText: {
 		fontSize: 15,
@@ -230,32 +229,54 @@ const table = StyleSheet.create({
 		color: colors.actionText,
 	},
 	tableData: {
-		marginHorizontal: 70,
-		paddingTop: 10,
+		paddingTop: 0,
 	},
 	tableRow: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		marginVertical: 5,
+	},
+	tableRowLeft: {
+		flex: 2,
+	},
+	tableRowCenter: {
+		flex: 6,
+		borderRadius: 10,
 		backgroundColor: colors.tableRowBg,
+	},
+	tableRowRight: {
+		flex: 2,
+	},
+	tableRowData: {
 		padding: 20,
 		borderRadius: 10,
-		marginVertical: 5,
-		position: 'relative',
+	},
+	tableRowSelected: {
+		backgroundColor: colors.buttonBg,
 	},
 	tableRowText: {
 		textAlign: 'center',
 		color: colors.tableRowText,
 	},
+	tableRowSelectedText: {
+		color: colors.buttonText,
+	},
 	tableRowAction: {
-		position: 'absolute',
-		right: '-35%',
-		padding: 15,
+		zIndex: 9,
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		marginRight: 20,
 	},
 	tableRowActionImage: {
-		width: 35,
-		height: 35,
+		width: 30,
+		height: 30,
 		resizeMode: 'contain',
 	},
 	tableFooter: {
-		marginTop: 30,
+		marginTop: 10,
+		marginHorizontal: 70,
 		marginVertical: 5,
 		flexDirection: 'row',
 		justifyContent: 'space-around',
@@ -267,4 +288,43 @@ const table = StyleSheet.create({
 	},
 });
 
-export { container, header, home, searchbar, button, dropdown, table };
+const ticket = StyleSheet.create({
+	container: {
+		flex: 1,
+		resizeMode: 'contain',
+		backgroundColor: colors.containerBg,
+	},
+	ticketImg: {
+		flex: 1,
+		resizeMode: 'contain',
+	},
+	ticketInfoBox: {
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		position: 'absolute',
+		top: '30%',
+		right: '2%',
+		height: '15%',
+		transform: [{ rotate: '90deg' }],
+	},
+	ticketInfoBoxRocket: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		width: '90%',
+	},
+	ticketTextTitle: {
+		color: colors.ticketText,
+		fontSize: 11,
+	},
+	ticketTextHeading: {
+		color: colors.ticketText,
+		fontSize: 30,
+	},
+	ticketTextBold: {
+		color: colors.ticketText,
+		fontSize: 11,
+		fontWeight: 'bold',
+	},
+});
+
+export { container, header, home, searchbar, button, dropdown, table, ticket };

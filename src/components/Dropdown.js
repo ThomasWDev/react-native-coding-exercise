@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
 	FlatList,
 	StyleSheet,
@@ -9,11 +9,15 @@ import {
 } from 'react-native';
 import { dropdown } from '../utils/styles';
 
-const Dropdown = ({ children, label, data, onSelect }) => {
+const Dropdown = ({ children, label, data, onSelect, value }) => {
 	const DropdownButton = useRef();
 	const [visible, setVisible] = useState(false);
 	const [selected, setSelected] = useState(undefined);
 	const [dropdownTop, setDropdownTop] = useState(0);
+
+	useEffect(() => {
+		setSelected(value);
+	}, []);
 
 	const toggleDropdown = () => {
 		visible ? setVisible(false) : openDropdown();
