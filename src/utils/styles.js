@@ -291,8 +291,9 @@ const table = StyleSheet.create({
 const ticket = StyleSheet.create({
 	container: {
 		flex: 1,
-		resizeMode: 'contain',
-		backgroundColor: colors.containerBg,
+	},
+	containerImgStyle: {
+		resizeMode: 'cover',
 	},
 	ticketImg: {
 		flex: 1,
@@ -302,7 +303,7 @@ const ticket = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 		position: 'absolute',
-		top: '30%',
+		top: '32%',
 		right: '2%',
 		height: '15%',
 		transform: [{ rotate: '90deg' }],
@@ -324,6 +325,12 @@ const ticket = StyleSheet.create({
 		color: colors.ticketText,
 		fontSize: 11,
 		fontWeight: 'bold',
+	},
+	backButton: {
+		width: 45,
+		height: 45,
+		margin: 10,
+		resizeMode: 'contain',
 	},
 });
 
