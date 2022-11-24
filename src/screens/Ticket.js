@@ -1,16 +1,30 @@
 import React from 'react';
-import { ImageBackground, Text, View } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import {
+	Image,
+	ImageBackground,
+	Text,
+	TouchableOpacity,
+	View,
+} from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { ticket } from '../utils/styles';
 
 const Ticket = () => {
 	const router = useRoute();
-	console.log('router:', router.params);
+	const navigation = useNavigation();
+
 	return (
 		<ImageBackground
 			style={ticket.container}
+			imageStyle={ticket.containerImgStyle}
 			source={require('../../assets/ticketbg.png')}
 		>
+			<TouchableOpacity onPress={() => navigation.goBack()}>
+				<Image
+					style={ticket.backButton}
+					source={require('../../assets/backbutton.png')}
+				/>
+			</TouchableOpacity>
 			<ImageBackground
 				style={ticket.ticketImg}
 				source={require('../../assets/ticket.png')}
