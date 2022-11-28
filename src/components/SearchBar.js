@@ -1,8 +1,9 @@
 import React from 'react';
-import { Image, Text, TextInput, View } from 'react-native';
+import { Image, TextInput, View } from 'react-native';
 import { searchbar } from '../utils/styles';
 import colors from '../utils/colors';
 import Button from './Button';
+import { icons } from '../assets/icons';
 
 const SearchBar = ({ text, setSearchText, doSearch }) => {
 	return (
@@ -12,7 +13,7 @@ const SearchBar = ({ text, setSearchText, doSearch }) => {
 					<View style={searchbar.searchInputIcon}>
 						<Image
 							style={searchbar.searchInputIconImg}
-							source={require('../../assets/searchRocket.png')}
+							source={icons.searchRocket}
 						/>
 					</View>
 					<TextInput

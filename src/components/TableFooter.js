@@ -3,17 +3,22 @@ import { Text, View } from 'react-native';
 import { table } from '../utils/styles';
 import Button from './Button';
 
-const TableFooter = ({ totalData, search, loadMore }) => {
+const TableFooter = ({ currentTotalItem, totalCount, loadMore }) => {
 	return (
 		<View style={table.tableFooter}>
-			<View>
-				<Text style={table.tableFooterPagination}>
-					{totalData} of {totalData}
-				</Text>
-			</View>
-			<View>
-				<Button title="LOAD MORE" fullWidth onPress={loadMore} />
-			</View>
+			{currentTotalItem < totalCount && (
+				<View>
+					<Text style={table.tableFooterPagination}>
+						{currentTotalItem > totalCount ? totalCount : currentTotalItem} of{' '}
+						{totalCount}
+					</Text>
+				</View>
+			)}
+			{currentTotalItem < totalCount && (
+				<View>
+					<Button title="LOAD MORE" fullWidth onPress={loadMore} />
+				</View>
+			)}
 		</View>
 	);
 };

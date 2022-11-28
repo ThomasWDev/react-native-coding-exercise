@@ -7,49 +7,63 @@ import TableHead from '../components/TableHead';
 import TableData from '../components/TableData';
 import TableFooter from '../components/TableFooter';
 import { useQuery, useLazyQuery } from '@apollo/client';
-import { GET_LAUNCHES } from '../utils/queries';
+import { GET_LAUNCHES_PAST_RESULT } from '../utils/queries';
+import { icons } from '../assets/icons';
 
 const Home = () => {
+	const LIMIT_ITEM = 10;
 	const [selectedRow, setSelectedRow] = useState(null);
 	const [searchText, setSearchText] = useState('');
 	const [filter, setFilter] = useState('launch_year:desc');
-	const [limit, setLimit] = useState(6);
+	const [offset, setOffset] = useState(0);
+	const [launchesPast, setLaunchesPast] = useState([]);
 	const [sort, setSort] = useState(true);
-	const [search, setSearch] = useState({
-		limit: limit,
+	const [isLoadMore, setIsLoadMore] = useState(false);
+	const [searchParameters, setSearchParameters] = useState({
+		limit: LIMIT_ITEM,
 		sort: filter,
-		offset: 0,
+		offset: offset,
 	});
-	const [getData, { loading, error, data, fetchMore, refetch }] = useLazyQuery(
-		GET_LAUNCHES,
-		{
-			variables: search,
-		}
-	);
+	const [getLaunchesPastResult, { loading, error, data, refetch }] =
+		useLazyQuery(GET_LAUNCHES_PAST_RESULT, {
+			variables: searchParameters,
+		});
 
 	useEffect(() => {
-		getData();
+		getLaunchesPastResult();
 	}, []);
+
+	useEffect(() => {
+		let countLaunchPast = data?.launchesPastResult?.data?.length;
+		if (countLaunchPast != undefined && (isLoadMore || offset == 0)) {
+			if (offset == 0) {
+				setLaunchesPast(data?.launchesPastResult.data);
+			} else {
+				setLaunchesPast([...launchesPast, ...data?.launchesPastResult.data]);
+			}
+			let currentOffSet = countLaunchPast + offset;
+			setOffset(currentOffSet);
+			setIsLoadMore(false);
+		}
+	}, [data?.launchesPastResult]);
 
 	return (
 		<MainLayout
 			afterHeader={
 				<>
 					<View style={home.bannerContainer}>
-						<Image
-							style={home.bannerImg}
-							source={require('../../assets/banner.png')}
-						/>
+						<Image style={home.bannerImg} source={icons.banner} />
 					</View>
 					<SearchBar
 						text={searchText}
 						setSearchText={setSearchText}
 						doSearch={() => {
+							setOffset(0);
 							refetch({
-								limit: limit,
+								limit: LIMIT_ITEM,
 								find: searchText,
 								sort: `${filter.value}${sort ? '' : ':desc'}`,
-								offset: 0,
+								offset: offset,
 							});
 						}}
 					/>
@@ -57,18 +71,20 @@ const Home = () => {
 						filter={filter}
 						sort={sort}
 						setSorting={(sort, selected) => {
+							setOffset(0);
 							refetch({
-								limit: limit,
+								limit: LIMIT_ITEM,
 								sort: `${selected.value}${sort ? '' : ':desc'}`,
-								offset: 0,
+								offset: offset,
 							});
 							setSort(sort);
 						}}
 						setFilter={(selectedSort) => {
+							setOffset(0);
 							refetch({
-								limit: limit,
+								limit: LIMIT_ITEM,
 								sort: selectedSort.value,
-								offset: 0,
+								offset: offset,
 							});
 							setFilter(selectedSort);
 							setSort(true);
@@ -79,19 +95,18 @@ const Home = () => {
 		>
 			<View>
 				<TableData
-					data={data?.launchesPast || []}
+					data={launchesPast}
 					loading={loading}
 					sort={sort}
 					selectedRow={selectedRow}
 					setSelected={setSelectedRow}
 					footer={
 						<TableFooter
-							search={search}
-							totalData={data?.launchesPast.length}
+							currentTotalItem={offset}
+							totalCount={data?.launchesPastResult.result.totalCount}
 							loadMore={() => {
-								fetchMore({
-									variables: { ...search, offset: limit },
-								});
+								setIsLoadMore(true);
+								refetch({ ...searchParameters, offset: offset });
 							}}
 						/>
 					}

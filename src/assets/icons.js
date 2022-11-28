@@ -1,0 +1,15 @@
+export const icons = {
+	adaptive: require('./icons/adaptive-icon.png'),
+	arrowDown: require('./icons/arrowdown.png'),
+	arrowUp: require('./icons/arrowup.png'),
+	back: require('./icons/backbutton.png'),
+	banner: require('./icons/banner.png'),
+	chevronRight: require('./icons/chevronright.png'),
+	favicon: require('./icons/favicon.png'),
+	filter: require('./icons/filtericon.png'),
+	logo: require('./icons/logo.png'),
+	planent: require('./icons/planent.png'),
+	rocket: require('./icons/rocket.png'),
+	searchRocket: require('./icons/searchRocket.png'),
+	splash: require('./icons/splash.png'),
+};

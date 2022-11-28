@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ticket } from '../utils/styles';
+import { imagesAssets } from '../assets/images';
+import { icons } from '../assets/icons';
 
 const Ticket = () => {
 	const router = useRoute();
@@ -17,18 +19,12 @@ const Ticket = () => {
 		<ImageBackground
 			style={ticket.container}
 			imageStyle={ticket.containerImgStyle}
-			source={require('../../assets/ticketbg.png')}
+			source={imagesAssets.ticketBackground}
 		>
 			<TouchableOpacity onPress={() => navigation.goBack()}>
-				<Image
-					style={ticket.backButton}
-					source={require('../../assets/backbutton.png')}
-				/>
+				<Image style={ticket.backButton} source={icons.back} />
 			</TouchableOpacity>
-			<ImageBackground
-				style={ticket.ticketImg}
-				source={require('../../assets/ticket.png')}
-			>
+			<ImageBackground style={ticket.ticketImg} source={imagesAssets.ticket}>
 				<View style={ticket.ticketInfoBox}>
 					<View>
 						<Text style={ticket.ticketTextTitle}>MISSION NAME</Text>

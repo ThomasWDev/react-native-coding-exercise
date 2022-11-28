@@ -7,9 +7,10 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { table } from '../utils/styles';
 import colors from '../utils/colors';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { icons } from '../assets/icons';
 
 const TableData = ({
 	data,
@@ -70,7 +71,7 @@ const TableData = ({
 										>
 											<Image
 												style={table.tableRowActionImage}
-												source={require('../../assets/chevronright.png')}
+												source={icons.chevronRight}
 											/>
 										</TouchableOpacity>
 									)}
@@ -79,8 +80,15 @@ const TableData = ({
 						);
 					}}
 					ListEmptyComponent={
-						<View style={{ alignItems: 'center', paddingVertical: 5 }}>
-							<Text>No data found!</Text>
+						<View
+							style={{
+								alignItems: 'center',
+								paddingVertical: 5,
+							}}
+						>
+							<Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+								No data found!
+							</Text>
 						</View>
 					}
 					ListFooterComponent={footer}

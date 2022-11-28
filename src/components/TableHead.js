@@ -3,6 +3,7 @@ import { Image, Text, View } from 'react-native';
 import { table } from '../utils/styles';
 import Button from './Button';
 import Dropdown from './Dropdown';
+import { icons } from '../assets/icons';
 
 const TableHead = ({ filter, sort, setSorting, setFilter }) => {
 	const filters = [
@@ -25,25 +26,16 @@ const TableHead = ({ filter, sort, setSorting, setFilter }) => {
 							setFilter(selected);
 						}}
 					>
-						<Image
-							style={table.tableSortIcon}
-							source={require('../../assets/filtericon.png')}
-						/>
+						<Image style={table.tableSortIcon} source={icons.filter} />
 					</Dropdown>
 				</View>
 				<View style={table.tableSortContainer}>
 					<Button transparent onPress={() => setSorting(!sort, selected)}>
 						<Text style={table.tableSortText}>{selected?.label}</Text>
 						{sort ? (
-							<Image
-								style={table.tableSortIcon}
-								source={require(`../../assets/arrowup.png`)}
-							/>
+							<Image style={table.tableSortIcon} source={icons.arrowUp} />
 						) : (
-							<Image
-								style={table.tableSortIcon}
-								source={require(`../../assets/arrowdown.png`)}
-							/>
+							<Image style={table.tableSortIcon} source={icons.arrowDown} />
 						)}
 					</Button>
 				</View>
